@@ -1,6 +1,6 @@
     
     <footer>
-        Creado ppor Carlos Steeven Jaramillo
+        Creado por Carlos Steeven Jaramillo
     </footer>
 
     <script src="../assets/jquery/js/jquery-3.3.1.slim.min.js" ></script>

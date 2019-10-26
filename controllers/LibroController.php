@@ -10,7 +10,12 @@ if(isset($_GET["funcion"])){
         case "listar" :
             $libro = new LibroModel();
             $listaLibros = $libro->listar();
+            $tituloPagina = "Lista libros";
+            include_once("../views/common/cabecera.php");
+            include_once("../views/common/alerta.php");
+            include_once("../views/common/menu.php");
             include_once("../views/libro/listar.php");
+            include_once("../views/common/pie.php");
             break;
 
         case "nuevo" :
@@ -30,7 +35,12 @@ if(isset($_GET["funcion"])){
                     $_SESSION["alert"] = ["tipo" => "danger", "mensaje" => "Libro no insertado"];
                 }
             }else{
+                $tituloPagina = "Nuevo libro";
+                include_once("../views/common/cabecera.php");
+                include_once("../views/common/alerta.php");
+                include_once("../views/common/menu.php");
                 include_once("../views/libro/nuevo.php");
+                include_once("../views/common/pie.php");
             }
             break;
 
@@ -62,7 +72,14 @@ if(isset($_GET["funcion"])){
                         $libro->setAnioEdicion($libroActualizar["anio_edicion"]);
                         $libro->setPaginas($libroActualizar["paginas"]);
                         $libro->setEditorial($libroActualizar["editorial"]);
+                        
+                        $tituloPagina = "Actualizar el libro: " . $libro->getNombre();
+                        include_once("../views/common/cabecera.php");
+                        include_once("../views/common/alerta.php");
+                        include_once("../views/common/menu.php");
                         include_once("../views/libro/actualizar.php");
+                        include_once("../views/common/pie.php");
+
                     } else {
                         $_SESSION["alert"] = ["tipo" => "danger", "mensaje" => "No hay libro para actualizar"];
                         header('Location: LibroController.php');
