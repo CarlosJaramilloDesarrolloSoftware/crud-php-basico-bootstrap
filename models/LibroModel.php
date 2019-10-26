@@ -63,13 +63,13 @@ class LibroModel{
         $this->editorial = $editorial;
     }
 
-    public function insertar($libro){
+    public function insertar(){
         $insert = $this->db->prepare('INSERT INTO libro VALUES(NULL, :nombre, :autor, :anio_edicion, :paginas, :editorial)');
-        $insert->bindValue('nombre', $libro->getNombre());
-        $insert->bindValue('autor', $libro->getAutor());
-        $insert->bindValue('anio_edicion', $libro->getAnioEdicion());
-        $insert->bindValue('paginas', $libro->getPaginas());
-        $insert->bindValue('editorial', $libro->getEditorial());
+        $insert->bindValue('nombre', $this->getNombre());
+        $insert->bindValue('autor', $this->getAutor());
+        $insert->bindValue('anio_edicion', $this->getAnioEdicion());
+        $insert->bindValue('paginas', $this->getPaginas());
+        $insert->bindValue('editorial', $this->getEditorial());
         return $insert->execute();
     }
 
@@ -93,9 +93,9 @@ class LibroModel{
         return $listaDondeGuardarObjetosDeTipoLibro;
     }
 
-    public function consultar($id){
+    public function consultar(){
         $consulta = $this->db->prepare("SELECT * FROM libro WHERE id = :id");
-        $consulta->bindValue('id', $id);
+        $consulta->bindValue('id', $this->getId());
         $consulta->execute();
         $libro = $consulta->fetch(PDO::FETCH_ASSOC);
         if($libro){
@@ -105,20 +105,20 @@ class LibroModel{
         }
     }
 
-    public function eliminar($id){
+    public function eliminar(){
         $consulta = $this->db->prepare("DELETE FROM libro WHERE id = :id");
-        $consulta->bindValue('id', $id);
+        $consulta->bindValue('id', $this->getId());
         return $consulta->execute();
     }
 
-    public function actualizar($libro){
+    public function actualizar(){
         $insert = $this->db->prepare('UPDATE libro SET nombre = :nombre, autor = :autor, anio_edicion = :anio_edicion, paginas = :paginas, editorial = :editorial WHERE id = :id');
-        $insert->bindValue('id', $libro->getId());
-        $insert->bindValue('nombre', $libro->getNombre());
-        $insert->bindValue('autor', $libro->getAutor());
-        $insert->bindValue('anio_edicion', $libro->getAnioEdicion());
-        $insert->bindValue('paginas', $libro->getPaginas());
-        $insert->bindValue('editorial', $libro->getEditorial());
+        $insert->bindValue('id', $this->getId());
+        $insert->bindValue('nombre', $this->getNombre());
+        $insert->bindValue('autor', $this->getAutor());
+        $insert->bindValue('anio_edicion', $this->getAnioEdicion());
+        $insert->bindValue('paginas', $this->getPaginas());
+        $insert->bindValue('editorial', $this->getEditorial());
         return $insert->execute();
     }
 }

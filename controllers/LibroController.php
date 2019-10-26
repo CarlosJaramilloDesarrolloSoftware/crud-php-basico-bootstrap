@@ -22,7 +22,7 @@ if(isset($_GET["funcion"])){
                 $libro->setPaginas($_POST["paginas"]);
                 $libro->setEditorial($_POST["editorial"]);
 
-                $guardar = $libro->insertar($libro);
+                $guardar = $libro->insertar();
                 if($guardar){
                     $_SESSION["alert"] = ["tipo" => "success", "mensaje" => "Libro insertado con éxito"];
                     header('Location: LibroController.php');
@@ -38,16 +38,15 @@ if(isset($_GET["funcion"])){
             if(isset($_GET["id"])){
                 $id = $_GET["id"];
                 $libro = new LibroModel();
-
+                $libro->setId($id);
                 if(isset($_POST["actualizar"])){
-                    $libro->setId($id);
                     $libro->setNombre($_POST["nombre"]);
                     $libro->setAutor($_POST["autor"]);
                     $libro->setAnioEdicion($_POST["anioEdicion"]);
                     $libro->setPaginas($_POST["paginas"]);
                     $libro->setEditorial($_POST["editorial"]);
 
-                    $actualizar = $libro->actualizar($libro);
+                    $actualizar = $libro->actualizar();
                     if($actualizar){
                         $_SESSION["alert"] = ["tipo" => "success", "mensaje" => "Libro actualizado con éxito"];
                         header('Location: LibroController.php');
@@ -55,7 +54,7 @@ if(isset($_GET["funcion"])){
                         $_SESSION["alert"] = ["tipo" => "danger", "mensaje" => "Libro no actualizado"];
                     }
                 }else{
-                    $libroActualizar =  $libro->consultar($id);
+                    $libroActualizar =  $libro->consultar();
                     if($libroActualizar){
                         $libro->setId($libroActualizar["id"]);
                         $libro->setNombre($libroActualizar["nombre"]);
